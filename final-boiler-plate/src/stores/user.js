@@ -1,44 +1,42 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { supabase } from "../supabase";
-export const useUserStore = defineStore("user", {
-  state: () => ({
-    user: null,
-  }),
-  actions: {
-    async fetchUser() {
+
+export const useUserStore = defineStore(
+  "user",
+  () => {
+    const user = ref(null);
+
+    const fetchUser = async () => {
       const user = await supabase.auth.user();
-      this.user = user;
-    },
-    async signIn(email, password) {
+      user.value = user;
+    };
+
+    const signIn = async (email, password) => {
       const { user, error } = await supabase.auth.signIn({
         email: email,
         password: password,
       });
       if (error) throw error;
       if (user) {
-        this.user = user;
-        console.log(this.user);
+        user.value = user;
+        console.log(user);
       }
-    },
-    async signUp(email, password) {
+    };
+
+    const signUp = async (email, password) => {
       const { user, error } = await supabase.auth.signUp({
         email: email,
         password: password,
       });
       if (error) throw error;
       if (user) {
-        this.user = user;
-        console.log(this.user);
+        user.value = user;
+        console.log(user.value);
       }
-    },
-    persist: {
-      enabled: true,
-      strategies: [
-        {
-          key: "user",
-          storage: localStorage,
-        },
-      ],
-    },
+    };
+
+    return { signUp, signIn, fetchUser, user };
   },
-});
+  { persist: true }
+);
