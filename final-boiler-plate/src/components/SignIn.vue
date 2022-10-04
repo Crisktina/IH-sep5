@@ -17,7 +17,7 @@
         id="email"
       />
     </div>
-    <div class="mb-4">
+    <div class="">
       <label class="" for="">Password</label>
 
       <div class="">
@@ -57,7 +57,7 @@ import { storeToRefs } from "pinia";
 
 // Route Variables
 const route = "/auth/sign-up";
-const buttonText = "Test the Sign Up Route";
+const buttonText = "Test the Sign Up Roooute";
 
 // Input Fields
 const email = ref("");
